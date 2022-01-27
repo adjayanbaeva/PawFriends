@@ -7,6 +7,10 @@ const mongoose = require("mongoose");
 // creating an instance of express and storing it in app
 const app = express();
 
+// Importing models
+const userAccount = require("./routes/api/user-account");
+const userProfile = require("./routes/api/user-profile");
+
 //Db config
 const db = require("./config/keys").mongoURI;
 
@@ -17,6 +21,10 @@ mongoose
   .catch((err) => console.log(err));
 
 app.get("/", (req, res) => res.send("Hello"));
+
+//Use routes
+app.use("/api/users", userAccount);
+app.use("/api/profile", userProfile);
 
 const port = 8000;
 app.listen(port, () => console.log(`Test: Server running on port ${port}`));
