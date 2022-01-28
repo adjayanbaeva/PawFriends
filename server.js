@@ -4,6 +4,9 @@ const express = require("express");
 // importing mongoose (a library that talks to db)
 const mongoose = require("mongoose");
 
+// importing body-parser(this library makes sure that data coming from user converted to json format)
+const bodyparser = require("body-parser");
+
 // creating an instance of express and storing it in app
 const app = express();
 
@@ -13,6 +16,11 @@ const userProfile = require("./routes/api/user-profile");
 
 //Db config
 const db = require("./config/keys").mongoURI;
+
+//Body-parser config
+app.use(bodyparser.urlencoded({ extended: false }));
+//urlencoded()makes sure that data entered by user is treated as it is (e.g. if user enters apostrophe as part of their name, js won't throw an error)
+app.use(bodyparser.json());
 
 //Connect to db
 mongoose
