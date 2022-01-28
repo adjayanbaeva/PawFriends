@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const bcrypt = require("bcryptjs");
 const UserAccount = require("../../models/UserAccount");
 
 // router.get("/test", (req, res) => res.json({ msg: "User account works!" }));
@@ -14,10 +15,20 @@ router.post("/register", (req, res) => {
           email: req.body.email,
           password: req.body.password,
         });
-        newUser
-          .save()
-          .then((user) => res.json(user))
-          .catch((err) => console.log(err));
+        //Hashing the password using bcrypt
+        bcrypt.genSalt(10, (err, salt) => {
+          if (err) throw err;
+
+          bcrypt.hash(req.body.password, salt, (err, hash) => {
+            if (err) throw err;
+
+            newUser.password = hash;
+            newUser
+              .save()
+              .then((user) => res.json(user))
+              .catch((err) => console.log(err));
+          });
+        });
       }
     })
     .catch((err) => console.log(err));
