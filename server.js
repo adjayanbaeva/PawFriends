@@ -7,6 +7,9 @@ const mongoose = require("mongoose");
 // importing body-parser(this library makes sure that data coming from user converted to json format)
 const bodyparser = require("body-parser");
 
+//Importing password(this library helps to ensure that token provided by user is valid token)
+const passport = require("passport");
+
 // creating an instance of express and storing it in app
 const app = express();
 
@@ -21,6 +24,10 @@ const db = require("./config/keys").mongoURI;
 app.use(bodyparser.urlencoded({ extended: false }));
 //urlencoded()makes sure that data entered by user is treated as it is (e.g. if user enters apostrophe as part of their name, js won't throw an error)
 app.use(bodyparser.json());
+
+// Passport configuration
+app.use(passport.initialize());
+require("./config/passport")(passport);
 
 //Connect to db
 mongoose
