@@ -5,9 +5,17 @@ const UserAccount = require("../../models/UserAccount");
 const jwt = require("jsonwebtoken");
 const keys = require("../../config/keys");
 const passport = require("passport");
+const validateRegisterInput = require("../../validation/register");
+const validateLoginInput = require("../../validation/login");
 
 // router.get("/test", (req, res) => res.json({ msg: "User account works!" }));
 router.post("/register", (req, res) => {
+  //Validation
+  const { errors, isValid } = validateRegisterInput(req.body);
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+
   UserAccount.findOne({ email: req.body.email })
     .then((user) => {
       if (user) {
@@ -38,6 +46,12 @@ router.post("/register", (req, res) => {
 });
 
 router.post("/login", (req, res) => {
+  //Validation
+  const { errors, isValid } = validateLoginInput(req.body);
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+
   // Find user by email
   UserAccount.findOne({ email: req.body.email }).then((user) => {
     if (!user) {
@@ -73,7 +87,7 @@ router.get(
   "/current",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    return res.json({ msg: "Success" });
+    return res.json(req.user);
   }
 );
 
