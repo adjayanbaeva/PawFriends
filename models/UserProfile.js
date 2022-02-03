@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const Schema = monoose.Schema;
+const Schema = mongoose.Schema;
 
 const UserProfileSchema = new Schema({
   user: {
@@ -22,12 +22,27 @@ const UserProfileSchema = new Schema({
   bio: {
     type: String,
   },
-  dogs: {
-    type: [Schema.Types.ObjectId],
-    ref: "dogs-profile",
-  },
+  dog: [
+    // type: [Schema.Types.ObjectId],
+    // ref: "dogs-profile",
+    {
+      name: {
+        type: String,
+        required: true,
+      },
+      age: {
+        type: Number,
+      },
+      avatar: {
+        type: String,
+      },
+      bio: {
+        type: String,
+      },
+    },
+  ],
   friends: {
-    type: Schema.Types.ObjectId.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: "users-account",
     select: false,
   },

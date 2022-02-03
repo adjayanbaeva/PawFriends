@@ -24,13 +24,13 @@ module.exports = function validateRegisterInput(data) {
     errors.password = "Password is required";
   }
 
-  if (isEmpty(data.password2)) {
-    errors.password2 = "Confirm password is required";
-  }
+  // if (isEmpty(data.password2)) {
+  //   errors.password2 = "Confirm password is required";
+  // }
 
-  if (!validator.equals(data.password, data.password2)) {
-    errors.password2 = "Passwords must match";
-  }
+  // if (!validator.equals(data.password, data.password2)) {
+  //   errors.password2 = "Passwords must match";
+  // }
 
   return {
     errors,
