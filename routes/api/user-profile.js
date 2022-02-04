@@ -92,4 +92,40 @@ router.post(
   }
 );
 
+// Get all profiles
+router.get(
+  "/all",
+  // passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const errors = {};
+    UserProfile.find()
+      .populate("user", ["name"])
+      .then((profiles) => {
+        if (!profiles) {
+          errors.nonprofile = "There are no profiles";
+          return res.status(404).json(errors);
+        }
+        res.json(profiles);
+      })
+      .catch((err) =>
+        res.status(404).json({ profile: "There are no profiles" })
+      );
+  }
+);
+
+//Filter Users by location
+router.get("/location/:location", (req, res) => {
+  // const errors = {}
+  UserProfile.find({ location: req.params.location })
+    .populate("user", ["name"])
+    .then((profile) => {
+      if (!profile) {
+        // errors.noprofile = ''
+        res.status(404).json("There is no profile for this user");
+      }
+      res.json(profile);
+    })
+    .catch((err) => res.status(404).json(err));
+});
+
 module.exports = router;
