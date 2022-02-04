@@ -68,5 +68,28 @@ router.post(
 );
 
 //POST Route to Add a Dog to a Profile
+router.post(
+  "/dog",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    //Locate the Profile first
+    UserProfile.findOne({ user: req.user.id }).then((profile) => {
+      if (!profile) {
+        errors.nonprofile = "There is no profile for this user";
+        return res.status(404).json(errors);
+      }
+      const newDog = {
+        name: req.body.name,
+        age: req.body.age,
+        avatar: req.body.avatar,
+        bio: req.body.bio,
+      };
+
+      //Add to dog array
+      profile.dog.unshift(newDog);
+      profile.save().then((profile) => res.json(profile));
+    });
+  }
+);
 
 module.exports = router;
