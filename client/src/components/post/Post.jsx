@@ -1,9 +1,16 @@
 import "./Post.css";
 import { MoreVert, Pets, FavoriteBorder } from "@mui/icons-material";
 import { Users } from "../../dummyData";
+import { useState } from "react";
 
 export default function Post({ post }) {
-  // console.log(post);
+  const [like, setLike] = useState(post.like);
+  const [isLiked, setIsLiked] = useState(false);
+
+  const likeHandler = () => {
+    setLike(isLiked ? like - 1 : like + 1);
+    setIsLiked(!isLiked);
+  };
   return (
     <div className="post">
       <div className="post-wrapper">
@@ -32,9 +39,9 @@ export default function Post({ post }) {
         </div>
         <div className="post-bottom">
           <div className="post-bottom-left">
-            <Pets className="like-icon" />
-            <FavoriteBorder className="like-icon" />
-            <span className="post-like-counter">{post.like}</span>
+            <Pets className="like-icon" onClick={likeHandler} />
+            <FavoriteBorder className="like-icon" onClick={likeHandler} />
+            <span className="post-like-counter">{like}</span>
           </div>
           <div className="post-bottom-right">
             <span className="post-comment-text">{post.comment} comments</span>
