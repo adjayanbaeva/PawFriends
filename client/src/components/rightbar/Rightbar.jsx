@@ -3,10 +3,10 @@ import { Cake } from "@mui/icons-material";
 import { Users } from "../../dummyData";
 import Online from "../online/Online";
 
-export default function Rightbar() {
-  return (
-    <div className="rightbar">
-      <div className="rightbar-wrapper">
+export default function Rightbar({ profile }) {
+  const HomeRightBar = () => {
+    return (
+      <>
         <div className="birthday-container">
           <Cake className="birthday-img" />
           <span className="birthday-text">
@@ -20,6 +20,58 @@ export default function Rightbar() {
             <Online key={user.id} user={user} />
           ))}
         </ul>
+      </>
+    );
+  };
+
+  const ProfileRightBar = () => {
+    return (
+      <>
+        <h4 className="rightbar-title">User Information Title</h4>
+        <div className="rightbar-info">
+          <div className="rightbar-info-item">
+            <span className="rightbar-info-key">Location</span>
+            <span className="rightbar-info-value">Seattle, WA</span>
+          </div>
+          <div className="rightbar-info-item">
+            <span className="rightbar-info-key">Bio</span>
+            <span className="rightbar-info-value">
+              Hi, My name is Jane and I have 2 dogs
+            </span>
+          </div>
+        </div>
+        <h4 className="rightbar-user-dogs">User Dogs</h4>
+        <div className="rightbar-user-dogs">
+          <div className="rightbar-user-dog">
+            <img
+              src="assets/dog1.jpeg"
+              alt=""
+              className="rightbar-user-dog-img"
+            />
+            <span className="rightbar-user-dog-name">Dexter</span>
+            <span className="rightbar-user-dog-bio">
+              Dexter is a happy and smart dog
+            </span>
+          </div>
+          <div className="rightbar-user-dog">
+            <img
+              src="assets/dog2.jpeg"
+              alt=""
+              className="rightbar-user-dog-img"
+            />
+            <span className="rightbar-user-dog-name">Iris</span>
+            <span className="rightbar-user-dog-bio">
+              Smart and High energetic
+            </span>
+          </div>
+        </div>
+      </>
+    );
+  };
+  return (
+    <div className="rightbar">
+      <div className="rightbar-wrapper">
+        <ProfileRightBar />
       </div>
     </div>
   );
