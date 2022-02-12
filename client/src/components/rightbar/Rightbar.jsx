@@ -4,6 +4,7 @@ import { Users } from "../../dummyData";
 import Online from "../online/Online";
 
 export default function Rightbar({ profile }) {
+  const PublicFolder = process.env.REACT_APP_PUBLIC_FOLDER;
   const HomeRightBar = () => {
     return (
       <>
@@ -13,7 +14,7 @@ export default function Rightbar({ profile }) {
             <b>Anna Li</b> and <b>3 other friends</b> have birthdays today
           </span>
         </div>
-        <img src="assets/ad.jpeg" alt="" className="rightbar-ad" />
+        <img src={`${PublicFolder}ad.jpeg`} alt="" className="rightbar-ad" />
         <h4 className="rightbar-title">Online Friends</h4>
         <ul className="rightbar-friends-list">
           {Users.map((user) => (
@@ -44,7 +45,7 @@ export default function Rightbar({ profile }) {
         <div className="rightbar-user-dogs">
           <div className="rightbar-user-dog">
             <img
-              src="assets/dog1.jpeg"
+              src={`${PublicFolder}dog1.jpeg`}
               alt=""
               className="rightbar-user-dog-img"
             />
@@ -55,7 +56,7 @@ export default function Rightbar({ profile }) {
           </div>
           <div className="rightbar-user-dog">
             <img
-              src="assets/dog2.jpeg"
+              src={`${PublicFolder}dog2.jpeg`}
               alt=""
               className="rightbar-user-dog-img"
             />
