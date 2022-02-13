@@ -6,7 +6,7 @@ const passport = require("passport");
 // Post model
 const Post = require("../../models/Post");
 // Profile model
-const Profile = require("../../models/Profile");
+const Profile = require("../../models/UserProfile");
 
 //Get all posts
 router.get("/", (req, res) => {
@@ -20,13 +20,14 @@ router.get("/", (req, res) => {
 router.post(
   "/",
   passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-    const newPost = new Post({
-      text: req.body.text,
-      name: req.body.name,
-      img: req.body.img,
-      user: req.user.id,
-    });
-    newPost.save().then((post) => res.json(post));
+  async (req, res) => {
+    const newPost = new Post(req.body);
+    try {
+      const savedPost = await newPost.save();
+      res.status(200).json(savedPost);
+    } catch (err) {
+      res.status(500).json(err);
+    }
   }
 );
+module.exports = router;

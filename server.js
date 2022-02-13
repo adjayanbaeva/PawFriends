@@ -16,7 +16,7 @@ const app = express();
 // Importing models
 const userAccount = require("./routes/api/user-account");
 const userProfile = require("./routes/api/user-profile");
-const post = require("./routes/api/posts");
+const userPost = require("./routes/api/posts");
 
 //Db config
 const db = require("./config/keys").mongoURI;
@@ -41,7 +41,7 @@ app.get("/", (req, res) => res.send("Hello"));
 //Use routes
 app.use("/api/users", userAccount);
 app.use("/api/profile", userProfile);
-app.use("/api/posts", post);
+app.use("/api/posts", userPost);
 
 const port = 8000;
 app.listen(port, () => console.log(`Test: Server running on port ${port}`));
