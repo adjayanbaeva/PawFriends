@@ -38,6 +38,9 @@ router.post(
     if (req.body.location) profileFields.location = req.body.location;
     if (req.body.avatar) profileFields.avatar = req.body.avatar;
     if (req.body.bio) profileFields.bio = req.body.bio;
+    if (req.body.coverPicture)
+      profileFields.coverPicture = req.body.coverPicture;
+    if (req.body.postalCode) profileFields.postalCode = req.body.postalCode;
 
     // Check if there's already a user profile in Db
     UserProfile.findOne({ user: req.user.id }).then((profile) => {
@@ -114,9 +117,9 @@ router.get(
 );
 
 //Filter Users by location
-router.get("/location/:location", (req, res) => {
+router.get("/location/:zipcode", (req, res) => {
   // const errors = {}
-  UserProfile.find({ location: req.params.location })
+  UserProfile.find({ postalCode: req.params.zipcode })
     .populate("user", ["name"])
     .then((profile) => {
       if (!profile) {
