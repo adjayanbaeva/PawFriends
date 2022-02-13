@@ -15,3 +15,18 @@ router.get("/", (req, res) => {
     .then((posts) => res.json(posts))
     .catch((err) => res.status(404).json({ nopostsfound: "No posts found" }));
 });
+
+//Create a post
+router.post(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const newPost = new Post({
+      text: req.body.text,
+      name: req.body.name,
+      img: req.body.img,
+      user: req.user.id,
+    });
+    newPost.save().then((post) => res.json(post));
+  }
+);
