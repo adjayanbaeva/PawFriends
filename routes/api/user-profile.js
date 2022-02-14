@@ -9,8 +9,8 @@ const UserAccount = require("../../models/UserAccount");
 
 // Get User Profile API
 router.get(
-  "/",
-  passport.authenticate("jwt", { session: false }),
+  "/:id",
+  // passport.authenticate("jwt", { session: false }),
   (req, res) => {
     const errors = {};
     UserProfile.findOne({ user: req.user.id })
