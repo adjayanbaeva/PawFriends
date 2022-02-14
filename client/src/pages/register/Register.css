@@ -18,6 +18,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    margin-right: 20px;
 }
 
 .login-logo {
@@ -27,12 +28,15 @@
     margin-bottom: 10px;
 }
 
+
 .login-description{
     font-size: 24px;
+    
 }
 
 .login-box{
     height: 400px;
+    width: 300px;
     padding: 20px;
     background-color: white;
     border-radius: 10px;
@@ -47,6 +51,7 @@
     border: 1px solid gray;
     font-size: 18px;
     padding-left: 20px;
+    margin-bottom: 10px;
 }
 
 .login-input:focus{
@@ -75,4 +80,5 @@
     font-size: 20px;
     font-weight: 500;
     cursor: pointer;
+    margin-top: 10px;
 }

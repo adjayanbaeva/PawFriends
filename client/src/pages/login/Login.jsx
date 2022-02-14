@@ -23,8 +23,9 @@ export default function Login() {
     <div className="login">
       <div className="login-wrapper">
         <div className="login-left">
-          <Pets className="login-logo" />
-          <h3 className="login-logo">PawFriends</h3>
+          <h3 className="login-logo">
+            <Pets /> PawFriends
+          </h3>
           <span className="login-description">
             Connect with dog owners in your neighborhood on PawFriends.
           </span>
