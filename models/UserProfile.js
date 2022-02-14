@@ -28,7 +28,6 @@ const UserProfileSchema = new Schema(
     postalCode: {
       type: Number,
       required: true,
-      max: 5,
     },
     bio: {
       type: String,

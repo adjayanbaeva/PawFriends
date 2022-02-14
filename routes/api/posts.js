@@ -5,10 +5,11 @@ const passport = require("passport");
 
 // Post model
 const Post = require("../../models/Post");
+const UserProfile = require("../../models/UserProfile");
 // Profile model
 const Profile = require("../../models/UserProfile");
 
-//Get all posts
+// Get all posts
 router.get("/", (req, res) => {
   Post.find()
     .sort({ date: -1 })
@@ -30,4 +31,21 @@ router.post(
     }
   }
 );
+
+//Get timeline posts
+// router.get("/", async (req, res) => {
+//   try {
+//     const currentUser = await UserProfile.findById(req.body.id);
+//     const userPosts = await Post.find({ userId: currentUser._id });
+//     const friendPosts = await Promise.all(
+//       currentUser.followings.map((friendId) => {
+//         return Post.find({ userId: friendId });
+//       })
+//     );
+//     res.json(userPosts.concat(...friendPosts));
+//   } catch (err) {
+//     res.status(500).json(err);
+//   }
+// });
+
 module.exports = router;
