@@ -21,7 +21,7 @@ export default function Feed() {
       <div className="feed-wrapper"></div>
       <Share />
       {posts.map((post) => (
-        <Post key={post.id} post={post} />
+        <Post key={post._id} post={post} />
       ))}
     </div>
   );
