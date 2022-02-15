@@ -20,17 +20,18 @@ export default function Topbar() {
         <div className="searchbar">
           <Search className="search-icon" />
           <input
-            placeholder="Search for a friend or post"
+            placeholder="Enter postal code to find friends nearby"
             className="search-input"
           />
         </div>
       </div>
       <div className="topbar-right">
-        <div className="topbar-links">
+        <button className="sidebar-button">Search</button>
+        {/* <div className="topbar-links">
           <span className="topbar-link">Homepage</span>
           <span className="topbar-link">Timeline</span>
-        </div>
-        <div className="topbar-icons">
+        </div> */}
+        {/* <div className="topbar-icons">
           <div className="topbar-icon-item">
             <Person />
             <span className="topbar-icon-badge">1</span>
@@ -43,7 +44,7 @@ export default function Topbar() {
             <Notifications />
             <span className="topbar-icon-badge">1</span>
           </div>
-        </div>
+        </div> */}
         <Link to={`/profile/${user.username}`}>
           <img
             src={

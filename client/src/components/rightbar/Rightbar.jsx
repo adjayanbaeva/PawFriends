@@ -93,31 +93,6 @@ export default function Rightbar({ user }) {
             <span className="rightbar-info-value">{user.desc}</span>
           </div>
         </div>
-        <h4 className="rightbar-user-dogs">User Dogs</h4>
-        <div className="rightbar-user-dogs">
-          <div className="rightbar-user-dog">
-            <img
-              src={`${PublicFolder}dog1.jpeg`}
-              alt=""
-              className="rightbar-user-dog-img"
-            />
-            <span className="rightbar-user-dog-name">Dexter</span>
-            <span className="rightbar-user-dog-bio">
-              Dexter is a happy and smart dog
-            </span>
-          </div>
-          <div className="rightbar-user-dog">
-            <img
-              src={`${PublicFolder}dog2.jpeg`}
-              alt=""
-              className="rightbar-user-dog-img"
-            />
-            <span className="rightbar-user-dog-name">Iris</span>
-            <span className="rightbar-user-dog-bio">
-              Smart and High energetic
-            </span>
-          </div>
-        </div>
 
         <h4 className="rightbar-user-dogs">Friends</h4>
         <div className="rightbar-user-dogs">
