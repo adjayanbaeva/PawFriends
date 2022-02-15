@@ -17,12 +17,12 @@ export default function Register() {
       confirmPassword.current.setCustomValidity("Passwords don't match!");
     } else {
       const user = {
-        name: username.current.value,
+        username: username.current.value,
         email: email.current.value,
         password: password.current.value,
       };
       try {
-        await axios.post("/users/register", user);
+        await axios.post("/auth/register", user);
         history.push("/login");
       } catch (err) {
         console.log(err);
