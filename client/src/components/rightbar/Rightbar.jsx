@@ -2,9 +2,26 @@ import "./Rightbar.css";
 import { Cake } from "@mui/icons-material";
 import { Users } from "../../dummyData";
 import Online from "../online/Online";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { Link } from "react-router-dom";
 
 export default function Rightbar({ user }) {
   const PublicFolder = process.env.REACT_APP_PUBLIC_FOLDER;
+  const [friends, setFriends] = useState([]);
+
+  useEffect(() => {
+    const getAllFriends = async () => {
+      try {
+        const friendsList = await axios.get("/users/friends/" + user._id);
+        setFriends(friendsList.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getAllFriends();
+  }, [user._id]);
+
   const HomeRightBar = () => {
     return (
       <>
@@ -63,6 +80,31 @@ export default function Rightbar({ user }) {
               Smart and High energetic
             </span>
           </div>
+        </div>
+
+        <h4 className="rightbar-user-dogs">Friends</h4>
+        <div className="rightbar-user-dogs">
+          {friends.map((friend) => (
+            <Link
+              to={"/profile/" + friend.username}
+              style={{ textDecoration: "none" }}
+            >
+              <div className="rightbar-user-dog">
+                <img
+                  src={
+                    friend.profilePicture
+                      ? PublicFolder + friend.profilePicture
+                      : PublicFolder + "person/noAvatar.png"
+                  }
+                  alt=""
+                  className="rightbar-user-friend-img"
+                />
+                <span className="rightbar-user-dog-name">
+                  {friend.username}
+                </span>
+              </div>
+            </Link>
+          ))}
         </div>
       </>
     );
