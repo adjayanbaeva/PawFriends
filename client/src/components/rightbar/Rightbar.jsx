@@ -1,5 +1,5 @@
 import "./Rightbar.css";
-import { Cake, Add } from "@mui/icons-material";
+import { Cake, Add, Remove } from "@mui/icons-material";
 import { Users } from "../../dummyData";
 import Online from "../online/Online";
 import { useEffect, useState, useContext } from "react";
@@ -11,6 +11,11 @@ export default function Rightbar({ user }) {
   const PublicFolder = process.env.REACT_APP_PUBLIC_FOLDER;
   const [friends, setFriends] = useState([]);
   const { user: currentUser } = useContext(AuthContext);
+  const [followed, setFollowed] = useState(false);
+
+  useEffect(() => {
+    setFollowed(currentUser.followings.includes(user?.id));
+  }, [currentUser, user.id]);
 
   useEffect(() => {
     const getFriends = async () => {
@@ -23,6 +28,23 @@ export default function Rightbar({ user }) {
     };
     getFriends();
   }, [user._id]);
+
+  const handleFollowClick = async () => {
+    try {
+      if (followed) {
+        await axios.put("/users/" + user._id + "/follow", {
+          userId: currentUser._id,
+        });
+      } else {
+        await axios.put("/users/" + user._id + "/unfollow", {
+          userId: currentUser._id,
+        });
+      }
+    } catch (err) {
+      console.log(err);
+    }
+    setFollowed(!followed);
+  };
 
   const HomeRightBar = () => {
     return (
@@ -48,9 +70,12 @@ export default function Rightbar({ user }) {
     return (
       <>
         {user.username !== currentUser.username && (
-          <button className="rightbar-follow-button">
-            Follow
-            <Add />
+          <button
+            className="rightbar-follow-button"
+            onClick={handleFollowClick}
+          >
+            {followed ? "Unfollow" : "Follow"}
+            {followed ? <Remove /> : <Add />}
           </button>
         )}
         <h4 className="rightbar-title">User Information Title</h4>
