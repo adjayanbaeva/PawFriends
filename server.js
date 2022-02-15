@@ -13,6 +13,10 @@ const passport = require("passport");
 // creating an instance of express and storing it in app
 const app = express();
 
+//importing multer, file upload package of node.js
+const multer = require("multer");
+const path = require("path");
+
 // Importing models
 // const userAccount = require("./routes/api/user-account");
 // const userProfile = require("./routes/api/user-profile");
@@ -39,6 +43,28 @@ mongoose
   .catch((err) => console.log(err));
 
 app.get("/", (req, res) => res.send("Hello"));
+
+app.use("/images", express.static(path.join(__dirname, "public/images")));
+
+//define destination, file name
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "public/images");
+  },
+  filename: (req, file, cb) => {
+    cb(null, req.body.name);
+  },
+});
+
+//creating an instance of multer and defining its path
+const upload = multer({ storage: storage });
+app.post("/api/upload", upload.single("file"), (req, res) => {
+  try {
+    return res.status(200).json("File uploaded successfully");
+  } catch (err) {
+    console.log(err);
+  }
+});
 
 //Use routes
 // app.use("/api/users", userAccount);
