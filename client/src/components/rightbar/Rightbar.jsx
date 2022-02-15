@@ -10,8 +10,10 @@ import { AuthContext } from "../../context/AuthContext";
 export default function Rightbar({ user }) {
   const PublicFolder = process.env.REACT_APP_PUBLIC_FOLDER;
   const [friends, setFriends] = useState([]);
-  const { user: currentUser } = useContext(AuthContext);
-  const [followed, setFollowed] = useState(false);
+  const { user: currentUser, dispatch } = useContext(AuthContext);
+  const [followed, setFollowed] = useState(
+    currentUser.followings.includes(user?.id)
+  );
 
   useEffect(() => {
     setFollowed(currentUser.followings.includes(user?.id));
@@ -32,13 +34,15 @@ export default function Rightbar({ user }) {
   const handleFollowClick = async () => {
     try {
       if (followed) {
-        await axios.put("/users/" + user._id + "/follow", {
-          userId: currentUser._id,
-        });
-      } else {
         await axios.put("/users/" + user._id + "/unfollow", {
           userId: currentUser._id,
         });
+        dispatch({ type: "UNFOLLOW", payload: user.id });
+      } else {
+        await axios.put("/users/" + user._id + "/follow", {
+          userId: currentUser._id,
+        });
+        dispatch({ type: "FOLLOW", payload: user.id });
       }
     } catch (err) {
       console.log(err);
