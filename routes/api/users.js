@@ -59,11 +59,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-<<<<<<< HEAD
-//get all friends of the user
-=======
 //get all friends of specific user
->>>>>>> eb3581710c5c154ece5d3262d3bcd17b3131ad5d
 router.get("/friends/:userId", async (req, res) => {
   try {
     const user = await User.findById(req.params.userId);
@@ -82,11 +78,6 @@ router.get("/friends/:userId", async (req, res) => {
     res.status(500).json(err);
   }
 });
-<<<<<<< HEAD
-=======
-
-//follow a user
->>>>>>> eb3581710c5c154ece5d3262d3bcd17b3131ad5d
 
 //follow a user
 router.put("/:id/follow", async (req, res) => {

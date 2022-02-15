@@ -11,15 +11,15 @@ export default function Rightbar({ user }) {
   const [friends, setFriends] = useState([]);
 
   useEffect(() => {
-    const getAllFriends = async () => {
+    const getFriends = async () => {
       try {
-        const friendsList = await axios.get("/users/friends/" + user._id);
-        setFriends(friendsList.data);
+        const friendList = await axios.get("/users/friends/" + user._id);
+        setFriends(friendList.data);
       } catch (err) {
         console.log(err);
       }
     };
-    getAllFriends();
+    getFriends();
   }, [user._id]);
 
   const HomeRightBar = () => {
