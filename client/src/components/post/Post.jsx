@@ -3,6 +3,7 @@ import { MoreVert, Pets, FavoriteBorder } from "@mui/icons-material";
 import { Users } from "../../dummyData";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { format } from "timeago.js";
 
 export default function Post({ post }) {
   const [like, setLike] = useState(post.likes.length);
@@ -33,7 +34,7 @@ export default function Post({ post }) {
               className="post-profile-img"
             />
             <span className="post-user-name">{user.username}</span>
-            <span className="post-date">{post.date}</span>
+            <span className="post-date">{format(post.createdAt)}</span>
           </div>
           <div className="post-top-right">
             <MoreVert />
@@ -41,7 +42,7 @@ export default function Post({ post }) {
         </div>
         <div className="post-center">
           <span className="post-text">{post?.desc}</span>
-          <img className="post-img" src={PublicFolder + post.photo} alt="" />
+          <img className="post-img" src={PublicFolder + post.img} alt="" />
         </div>
         <div className="post-bottom">
           <div className="post-bottom-left">
