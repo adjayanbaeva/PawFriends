@@ -1,28 +1,25 @@
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
-const UserAccount = require("../../models/UserAccount");
+const User = require("../../models/User");
 const jwt = require("jsonwebtoken");
 const keys = require("../../config/keys");
 const passport = require("passport");
-const validateRegisterInput = require("../../validation/register");
-const validateLoginInput = require("../../validation/login");
 
-// router.get("/test", (req, res) => res.json({ msg: "User account works!" }));
 router.post("/register", (req, res) => {
   //Validation
-  const { errors, isValid } = validateRegisterInput(req.body);
-  if (!isValid) {
-    return res.status(400).json(errors);
-  }
+  // const { errors, isValid } = validateRegisterInput(req.body);
+  // if (!isValid) {
+  //   return res.status(400).json(errors);
+  // }
 
-  UserAccount.findOne({ email: req.body.email })
+  User.findOne({ email: req.body.email })
     .then((user) => {
       if (user) {
         return res.status(400).json({ email: "Email already exists" });
       } else {
-        const newUser = new UserAccount({
-          name: req.body.name,
+        const newUser = new User({
+          username: req.body.username,
           email: req.body.email,
           password: req.body.password,
         });
@@ -47,13 +44,13 @@ router.post("/register", (req, res) => {
 
 router.post("/login", (req, res) => {
   //Validation
-  const { errors, isValid } = validateLoginInput(req.body);
-  if (!isValid) {
-    return res.status(400).json(errors);
-  }
+  // const { errors, isValid } = validateLoginInput(req.body);
+  // if (!isValid) {
+  //   return res.status(400).json(errors);
+  // }
 
   // Find user by email
-  UserAccount.findOne({ email: req.body.email }).then((user) => {
+  User.findOne({ email: req.body.email }).then((user) => {
     if (!user) {
       return res.status(404).json({ email: "User not found" });
     } else {
@@ -61,7 +58,11 @@ router.post("/login", (req, res) => {
         if (isMatch) {
           //*****/ GENERATE A TOKEN***********
           // Create a payload
-          const payload = { id: user.id, name: user.name, email: user.email };
+          const payload = {
+            id: user.id,
+            username: user.username,
+            email: user.email,
+          };
           // Sign token
           jwt.sign(
             payload,
@@ -82,13 +83,5 @@ router.post("/login", (req, res) => {
     }
   });
 });
-
-// router.get(
-//   "/current",
-//   passport.authenticate("jwt", { session: false }),
-//   (req, res) => {
-//     return res.json({ msg: "Success" });
-//   }
-// );
 
 module.exports = router;

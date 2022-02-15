@@ -14,9 +14,11 @@ const passport = require("passport");
 const app = express();
 
 // Importing models
-const userAccount = require("./routes/api/user-account");
-const userProfile = require("./routes/api/user-profile");
+// const userAccount = require("./routes/api/user-account");
+// const userProfile = require("./routes/api/user-profile");
 const userPost = require("./routes/api/posts");
+const users = require("./routes/api/users");
+const auth = require("./routes/api/auth");
 
 //Db config
 const db = require("./config/keys").mongoURI;
@@ -39,9 +41,11 @@ mongoose
 app.get("/", (req, res) => res.send("Hello"));
 
 //Use routes
-app.use("/api/users", userAccount);
-app.use("/api/profile", userProfile);
+// app.use("/api/users", userAccount);
+// app.use("/api/profile", userProfile);
 app.use("/api/posts", userPost);
+app.use("/api/users", users);
+app.use("/api/auth", auth);
 
 const port = 8000;
 app.listen(port, () => console.log(`Test: Server running on port ${port}`));

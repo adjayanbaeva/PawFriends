@@ -1,19 +1,22 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const UserProfileSchema = new Schema(
+const UserSchema = new Schema(
   {
-    user: {
-      type: Schema.Types.ObjectId,
-      ref: "users-account",
+    username: {
+      type: String,
+      required: true,
     },
-    handle: {
+    email: {
       type: String,
       required: true,
       unique: true,
-      max: 40,
     },
-    avatar: {
+    password: {
+      type: String,
+      required: true,
+    },
+    profilePicture: {
       type: String,
       default: "",
     },
@@ -23,13 +26,13 @@ const UserProfileSchema = new Schema(
     },
     location: {
       type: String,
-      required: true,
+      // required: true,
     },
     postalCode: {
       type: Number,
-      required: true,
+      // required: true,
     },
-    bio: {
+    desc: {
       type: String,
     },
     dog: [
@@ -52,11 +55,6 @@ const UserProfileSchema = new Schema(
         },
       },
     ],
-    friends: {
-      type: Schema.Types.ObjectId,
-      ref: "users-account",
-      select: false,
-    },
     followers: {
       type: Array,
       default: [],
@@ -65,15 +63,12 @@ const UserProfileSchema = new Schema(
       type: Array,
       default: [],
     },
-    // isAdmin: {
-    //   type: Boolean,
-    //   default: false,
-    // },
+    isAdmin: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true }
 );
 
-module.exports = UserProfile = mongoose.model(
-  "users-profile",
-  UserProfileSchema
-);
+module.exports = User = mongoose.model("User", UserSchema);
