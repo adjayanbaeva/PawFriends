@@ -30,13 +30,19 @@ export default function Profile() {
             <div className="profile-cover">
               <img
                 className="profile-cover-img"
-                src={user.coverPicture || PublicFolder + "person/noCover.jpeg"}
+                src={
+                  user.coverPicture
+                    ? PublicFolder + user.coverPicture
+                    : PublicFolder + "person/noCover.jpeg"
+                }
                 alt=""
               />
               <img
                 className="profile-user-img"
                 src={
-                  user.profilePicture || PublicFolder + "person/noAvatar.png"
+                  user.profilePicture
+                    ? PublicFolder + user.profilePicture
+                    : PublicFolder + "person/noAvatar.png"
                 }
                 alt=""
               />

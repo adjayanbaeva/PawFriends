@@ -82,7 +82,7 @@ export default function Rightbar({ user }) {
           </div>
         </div>
 
-        <h4 className="rightbar-user-dogs">User Friends</h4>
+        <h4 className="rightbar-user-dogs">Friends</h4>
         <div className="rightbar-user-dogs">
           {friends.map((friend) => (
             <Link
@@ -97,7 +97,7 @@ export default function Rightbar({ user }) {
                       : PublicFolder + "person/noAvatar.png"
                   }
                   alt=""
-                  className="rightbar-user-dog-img"
+                  className="rightbar-user-friend-img"
                 />
                 <span className="rightbar-user-dog-name">
                   {friend.username}
