@@ -3,7 +3,7 @@ import { Cake } from "@mui/icons-material";
 import { Users } from "../../dummyData";
 import Online from "../online/Online";
 
-export default function Rightbar({ profile }) {
+export default function Rightbar({ user }) {
   const PublicFolder = process.env.REACT_APP_PUBLIC_FOLDER;
   const HomeRightBar = () => {
     return (
@@ -31,14 +31,12 @@ export default function Rightbar({ profile }) {
         <h4 className="rightbar-title">User Information Title</h4>
         <div className="rightbar-info">
           <div className="rightbar-info-item">
-            <span className="rightbar-info-key">Location</span>
-            <span className="rightbar-info-value">Seattle, WA</span>
+            <span className="rightbar-info-key">Location:</span>
+            <span className="rightbar-info-value">{user.location}</span>
           </div>
           <div className="rightbar-info-item">
-            <span className="rightbar-info-key">Bio</span>
-            <span className="rightbar-info-value">
-              Hi, My name is Jane and I have 2 dogs
-            </span>
+            <span className="rightbar-info-key">Bio:</span>
+            <span className="rightbar-info-value">{user.desc}</span>
           </div>
         </div>
         <h4 className="rightbar-user-dogs">User Dogs</h4>
@@ -72,7 +70,7 @@ export default function Rightbar({ profile }) {
   return (
     <div className="rightbar">
       <div className="rightbar-wrapper">
-        {profile ? <ProfileRightBar /> : <HomeRightBar />}
+        {user ? <ProfileRightBar /> : <HomeRightBar />}
       </div>
     </div>
   );
